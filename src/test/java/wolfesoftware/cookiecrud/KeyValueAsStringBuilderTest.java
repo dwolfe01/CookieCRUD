@@ -5,6 +5,9 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+//TODO
+//shouldThrowExceptionsWhenTwoKeysAreTheSame
+//shouldNotAssumeOrderOfHashMap
 public class KeyValueAsStringBuilderTest {
 
 	private KeyValueAsStringBuilder builder;
@@ -16,20 +19,18 @@ public class KeyValueAsStringBuilderTest {
 	
 	@Test
 	public void shouldAddKeyValuePairToStringWithNoValues() {
-		String key = "key";
-		String value = "value";
-		assertEquals("key=value", builder.addKeyValue(key,value).toString());
+		String key1 = "key";
+		String value1 = "value";
+		assertEquals("key=value", builder.addKeyValue(key1,value1).toString());
 	}
 	
 	@Test
-	//shouldNotAssumeOrderOfHashMap
 	public void shouldAddTwoKeyValuePairsToStringWithNoValues() {
 		String key1 = "key1";
 		String value1 = "value1";
 		String key2 = "key2";
 		String value2 = "value2";
 		builder.addKeyValue(key1,value1).addKeyValue(key2,value2);
-		System.out.println(builder);
 		assertEquals("key2=value2;key1=value1", builder.toString());
 	}
 	
@@ -42,8 +43,6 @@ public class KeyValueAsStringBuilderTest {
 		assertEquals("key2=value2", builder.addKeyValue(key1,value1).addKeyValue(key2,value2).removeKey(key1).toString());
 	}
 	
-	//TODO
-	//shouldThrowExceptionsWhenTwoKeysAreTheSame
 	
 	@Test
 	public void shouldRemoveSecondKeyToStringWithTwoValues() {
@@ -51,17 +50,19 @@ public class KeyValueAsStringBuilderTest {
 		String value1 = "value1";
 		String key2 = "key2";
 		String value2 = "value2";
-		assertEquals("key1=value1", builder.addKeyValue(key1,value1).addKeyValue(key2,value2).removeKey(key2).toString());
+		builder.addKeyValue(key1,value1).addKeyValue(key2,value2);
+		builder.removeKey(key2);
+		assertEquals("key1=value1", builder.toString());
 	}
 	
 
 	
 	@Test
 	public void shouldRemoveKeyValuePairToStringWithOneValue() {
-		String key = "key";
-		String value = "value";
-		builder.addKeyValue(key,value);
-		assertEquals("", builder.removeKey(key).toString());
+		String key1 = "key";
+		String value1 = "value";
+		builder.addKeyValue(key1,value1);
+		assertEquals("", builder.removeKey(key1).toString());
 	}
 	
 	
