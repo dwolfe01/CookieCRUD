@@ -2,12 +2,15 @@ package wolfesoftware.cookiecrud;
 
 import javax.servlet.http.Cookie;
 
+import org.springframework.stereotype.Component;
+
 import wolfesoftware.cryptography.exception.MakeItSecretException;
 import wolfesoftware.keyvalueasstring.KeyValueAsStringBuilder;
 import wolfesoftware.keyvalueasstring.exception.KeyAlreadyExistsException;
 import wolfesoftware.keyvalueasstring.exception.KeyDoesNotExistException;
 
 //this class is responsible for creating and manipulating cookies. It is threadsafe.
+@Component
 public class CookieBakery {
 	
 	private char and = ';';

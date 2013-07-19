@@ -9,12 +9,12 @@
 	<packaging>war</packaging>
 
 	<name>cookieCRUD</name>
-	<url>http://maven.apache.org</url>
 
 	<properties>
 		<java.version>1.6</java.version>
 		<spring.version>3.1.0.RELEASE</spring.version>
 		<cglib.version>2.2.2</cglib.version>
+		<jettyVersion>7.2.0.v20101020</jettyVersion>
 	</properties>
 
 	<dependencies>
@@ -61,6 +61,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>${jettyVersion}</version>
+		</dependency>
+
 		<!-- CGLib for @Configuration -->
 		<dependency>
 			<groupId>cglib</groupId>
@@ -87,9 +93,13 @@
 
 	<repositories>
 		<repository>
-			<id>springsource-milestones</id>
-			<name>SpringSource Milestones Proxy</name>
-			<url>https://oss.sonatype.org/content/repositories/springsource-milestones</url>
+			<id>central</id>
+			<name>Maven Repository Switchboard</name>
+			<layout>default</layout>
+			<url>http://repo1.maven.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 		</repository>
 	</repositories>
 
@@ -104,6 +114,22 @@
 					<source>${java.version}</source>
 					<target>${java.version}</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<configuration>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<jettyPort>9090</jettyPort>
+					<!-- 
+					<connectors>  
+                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">  
+                            <port>9090</port>  
+                        </connector>  
+                    </connectors>
+                     -->  
+				</configuration>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>${jettyVersion}</version>
 			</plugin>
 		</plugins>
 	</build>

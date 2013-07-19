@@ -8,3 +8,4 @@ This provides functionality for
 Cipher is not thread safe; but the CookieBakery is threadsafe.
 Performance test has not been conducted.
 Problems may exist when the delimeters of the string are characters found within the key value pairs themselves.
+mvn -Djetty.port=9090 jetty:run will start the jetty servlet container on port 9090 and you can access this by http://localhost:9090
