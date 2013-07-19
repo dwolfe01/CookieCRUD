@@ -31,9 +31,12 @@ public class CookieBakeryTest {
 	}
 
 	@Test
-	public void shouldCreatePersistentCookie() throws Exception {
-		Cookie cookie = bakery.bakePersistentCookie();
+	public void shouldCreatePersistentCookieWithNameAndEmptyPath() throws Exception {
+		String name = "name";
+		Cookie cookie = bakery.bakePersistentCookie(name);
 		assertEquals(Integer.MAX_VALUE, cookie.getMaxAge());
+		assertEquals(name, cookie.getName());
+		assertEquals("/", cookie.getPath());
 	}
 
 	@Test
@@ -42,6 +45,16 @@ public class CookieBakeryTest {
 		Cookie cookie = bakery.bakePersistentCookie();
 		bakery.addKeyValuePair(cookie, key1, value1);
 		assertEquals(key1 + is + value1, cookie.getValue());
+	}
+	
+	@Test
+	public void shouldDeleteCookieBySettingMaxAgeToZero() throws KeyAlreadyExistsException{
+		CookieBakery bakery = new CookieBakery();
+		Cookie cookie = bakery.bakePersistentCookie();
+		bakery.addKeyValuePair(cookie, key1, value1);
+		bakery.makeCookieDie(cookie);
+		assertEquals(0,	cookie.getMaxAge());
+		assertEquals("", cookie.getValue());
 	}
 
 	@Test

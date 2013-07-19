@@ -23,10 +23,15 @@ public class CookieBakery {
 		this.and = and;
 		this.is = is;
 	}
-
-	public Cookie bakePersistentCookie() {
-		Cookie cookie = new Cookie("", "");
+	
+	public Cookie bakePersistentCookie(){
+		return this.bakePersistentCookie("DefaultCookieName");
+	}
+	
+	public Cookie bakePersistentCookie(String name) {
+		Cookie cookie = new Cookie(name, "");
 		cookie.setMaxAge(Integer.MAX_VALUE);
+		cookie.setPath("/");
 		return cookie;
 	}
 
@@ -59,5 +64,10 @@ public class CookieBakery {
 		return cookieValues.getValue(key);
 	}
 
+	public Cookie makeCookieDie(Cookie cookie) {
+		cookie.setMaxAge(0);
+		cookie.setValue("");
+		return cookie;
+	}
 
 }
