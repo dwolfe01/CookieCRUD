@@ -9,6 +9,8 @@ This provides functionality for
 4. storing cookie values and later retrieving them
 5. sharing user information across different domains
 
+==========
+
 Use Case 1: store info on CookieCRUD and then later retrieve it.
 website A can redirect a user to CookieCRUD with a create cookie command and a redirectTo http://back.to.me
 CookieCRUD will create a cookie with the name value as seen above and then redirect the user back to http://back.to.me.
@@ -26,11 +28,15 @@ CookieCRUD will create the appropriate cookie AND also store this in the session
 website A can call cookieCRUD directly with the session id and the cookieName to find out all the values that are in the cookie (assuming the user has not manually changed them).
 It can also perform all of this without sending any cookie information to the user.
 
+==========
+
 Security:
 CookieCRUD could support groups of websites that are all allowed to share user information. It would add a symetric key to the request that is only known to that group of websites.
 Could use HTTPS for the redirects, but of course the participant website would need a secure endpoint for CookieCRUD to redirect the user to (with the sensitive information).
 CookieCRUD can encrypt the content of the cookie so that it is not visible to the user.
 CookieCRUD can create a cookie with a strongly encrypted name, and include an expiry time for that cookie regardless of the actual settings in the cookie itself.
+   
+==========
    
 Future: for cookieCRUD to maintain user information without using cookies (or at least one central cookie)
 cookieCRUD can be downloaded and installed on your own server
@@ -39,13 +45,35 @@ Admin areas for websites
 Admin areas for users who want to exclude themselves from cookieCRUD or see what information is being stored about them
 Central login on CookieCRUD 
 
+==========
+
+Pricing/Revenue: 
+free for most applications  
+advertising
+number of sessions per day
+number of domains
+type of encryption
+
+==========
+
 Concerns:
 too many values being stored what are the breaking points?
 performance of writing and sharing all this information across sites?
+
+==========
 
 Notes:
 Cipher is not thread safe; but the CookieBakery is threadsafe.
 Performance test has not been conducted.
 Problems may exist when the delimeters of the string are characters found within the key value pairs themselves.
+
+==========
+
+Supported Browsers:
+
+==========
+
+Usage:
 mvn -Djetty.port=9090 jetty:run will start the jetty servlet container on port 9090 and you can access this by http://localhost:9090
 
+==========
