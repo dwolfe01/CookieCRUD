@@ -1,4 +1,3 @@
-CookieCRUD
 CookieCRUD is a central session server for holding user information.
 
 ==========
@@ -44,15 +43,6 @@ cookieCRUD could output some advertising embedded in the return to page, and for
 Admin areas for websites
 Admin areas for users who want to exclude themselves from cookieCRUD or see what information is being stored about them
 Central login on CookieCRUD 
-
-==========
-
-Pricing/Revenue: 
-free for most applications  
-advertising
-number of sessions per day
-number of domains
-type of encryption
 
 ==========
 
