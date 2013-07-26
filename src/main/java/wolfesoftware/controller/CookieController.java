@@ -51,20 +51,6 @@ public class CookieController {
 		response.sendRedirect("/showcookies");
 	}
 	
-	@RequestMapping(value = "/addcookie/{cookieName}/{key}/{value}")
-	public ModelAndView getValueFromCookie(HttpServletRequest request,
-			HttpServletResponse response,@PathVariable String cookieName, @PathVariable String key) throws IOException,
-			KeyAlreadyExistsException, CookieControllerException {
-		Cookie cookie = getCookieFromRequest(request,cookieName);
-		if (cookie==null){
-			throw new CookieControllerException("Cookie does not exist");
-		}
-		ModelAndView modelAndView = new ModelAndView("showvalue");
-		modelAndView.addObject("value", bakery.getValue(cookie, key));
-		return modelAndView;
-	}
-	
-	
 	@RequestMapping(value = "/addvalue/{cookieName}/{key}/{value}")
 	public void addValueToCookie(HttpServletRequest request,
 			HttpServletResponse response,@PathVariable String cookieName, @PathVariable String key,
