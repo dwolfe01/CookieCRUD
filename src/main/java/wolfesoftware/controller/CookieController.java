@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import wolfesoftware.controller.exception.CookieControllerException;
 import wolfesoftware.cookiecrud.CookieBakery;
 import wolfesoftware.keyvalueasstring.exception.KeyAlreadyExistsException;
+import wolfesoftware.keyvalueasstring.exception.KeyDoesNotExistException;
 
 @Controller
 public class CookieController {
@@ -27,7 +28,8 @@ public class CookieController {
 	public CookieController(CookieBakery bakery) {
 		this.bakery = bakery;
 	}
-
+	
+	
 	@RequestMapping(value = "/showcookies")
 	public ModelAndView showCookies(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -49,8 +51,22 @@ public class CookieController {
 		response.sendRedirect("/showcookies");
 	}
 	
+	@RequestMapping(value = "/addcookie/{cookieName}/{key}/{value}")
+	public ModelAndView getValueFromCookie(HttpServletRequest request,
+			HttpServletResponse response,@PathVariable String cookieName, @PathVariable String key) throws IOException,
+			KeyAlreadyExistsException, CookieControllerException {
+		Cookie cookie = getCookieFromRequest(request,cookieName);
+		if (cookie==null){
+			throw new CookieControllerException("Cookie does not exist");
+		}
+		ModelAndView modelAndView = new ModelAndView("showvalue");
+		modelAndView.addObject("value", bakery.getValue(cookie, key));
+		return modelAndView;
+	}
+	
+	
 	@RequestMapping(value = "/addvalue/{cookieName}/{key}/{value}")
-	public void updateCookie(HttpServletRequest request,
+	public void addValueToCookie(HttpServletRequest request,
 			HttpServletResponse response,@PathVariable String cookieName, @PathVariable String key,
 			@PathVariable String value) throws IOException,
 			KeyAlreadyExistsException, CookieControllerException {
@@ -59,6 +75,33 @@ public class CookieController {
 			throw new CookieControllerException("Cookie does not exist");
 		}
 		cookie = bakery.addKeyValuePair(cookie, key, value);
+		response.addCookie(cookie);
+		response.sendRedirect("/showcookies");
+	}
+	
+	@RequestMapping(value = "/updatevalue/{cookieName}/{key}/{value}")
+	public void updateValueInCookie(HttpServletRequest request,
+			HttpServletResponse response,@PathVariable String cookieName, @PathVariable String key,
+			@PathVariable String value) throws IOException,
+			KeyAlreadyExistsException, CookieControllerException, KeyDoesNotExistException {
+		Cookie cookie = getCookieFromRequest(request,cookieName);
+		if (cookie==null){
+			throw new CookieControllerException("Cookie does not exist");
+		}
+		cookie = bakery.updateKeyValue(cookie, key, value);
+		response.addCookie(cookie);
+		response.sendRedirect("/showcookies");
+	}
+	
+	@RequestMapping(value = "/deletebykey/{cookieName}/{key}")
+	public void deleteValueInCookie(HttpServletRequest request,
+			HttpServletResponse response,@PathVariable String cookieName, @PathVariable String key) throws IOException,
+			KeyAlreadyExistsException, CookieControllerException, KeyDoesNotExistException {
+		Cookie cookie = getCookieFromRequest(request,cookieName);
+		if (cookie==null){
+			throw new CookieControllerException("Cookie does not exist");
+		}
+		cookie = bakery.removeKey(cookie, key);
 		response.addCookie(cookie);
 		response.sendRedirect("/showcookies");
 	}
@@ -89,14 +132,11 @@ public class CookieController {
 		if (!(null == request.getCookies())) {
 			for (Cookie cookie : request.getCookies()) {
 				cookies.add(getCookieAsString(cookie));
-				System.out.println(getCookieAsString(cookie));
 			}
 		}
 	}
 
 	private String getCookieAsString(Cookie cookie) {
-		return "name:" + cookie.getName() + " value:" + cookie.getValue()
-				+ " age:" + cookie.getMaxAge() + " path:" + cookie.getPath()
-				+ " domain:" + cookie.getDomain();
+		return "name:" + cookie.getName() + " value:" + cookie.getValue();
 	}
 }

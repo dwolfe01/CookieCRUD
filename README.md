@@ -49,7 +49,7 @@ Central login on CookieCRUD
 Concerns:
 too many values being stored what are the breaking points?
 performance of writing and sharing all this information across sites?
-
+what happens when you add something that makes the cookie too big? 4096 bytes is the maximum size.
 ==========
 
 Notes:
@@ -64,6 +64,8 @@ Supported Browsers:
 ==========
 
 Usage:
-mvn -Djetty.port=9090 jetty:run will start the jetty servlet container on port 9090 and you can access this by http://localhost:9090
-
+Start the jetty servlet container on port 9090 and you can access this by http://localhost:9090
+mvn -Djetty.port=9090 jetty:run 
+Add these parameters to MAVEN_OPTS to debug
+-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=4000,server=y,suspend=y 
 ==========

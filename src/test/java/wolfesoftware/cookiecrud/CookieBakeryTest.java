@@ -34,7 +34,7 @@ public class CookieBakeryTest {
 	public void shouldCreatePersistentCookieWithNameAndEmptyPath() throws Exception {
 		String name = "name";
 		Cookie cookie = bakery.bakePersistentCookie(name);
-		assertEquals(Integer.MAX_VALUE, cookie.getMaxAge());
+		assertEquals(bakery.getDefaultCookieAge(), cookie.getMaxAge());
 		assertEquals(name, cookie.getName());
 		assertEquals("/", cookie.getPath());
 	}
@@ -43,16 +43,16 @@ public class CookieBakeryTest {
 	public void shouldWriteKeyValuePairToEmptyCookie()
 			throws KeyAlreadyExistsException {
 		Cookie cookie = bakery.bakePersistentCookie();
-		bakery.addKeyValuePair(cookie, key1, value1);
+		cookie = bakery.addKeyValuePair(cookie, key1, value1);
 		assertEquals(key1 + is + value1, cookie.getValue());
 	}
 	
 	@Test
 	public void shouldDeleteCookieBySettingMaxAgeToZero() throws KeyAlreadyExistsException{
-		CookieBakery bakery = new CookieBakery();
 		Cookie cookie = bakery.bakePersistentCookie();
-		bakery.addKeyValuePair(cookie, key1, value1);
-		bakery.makeCookieDie(cookie);
+		cookie = bakery.addKeyValuePair(cookie, key1, value1);
+		cookie = bakery.makeCookieDie(cookie);
+		assertEquals("/", cookie.getPath());
 		assertEquals(0,	cookie.getMaxAge());
 		assertEquals("", cookie.getValue());
 	}
@@ -60,10 +60,9 @@ public class CookieBakeryTest {
 	@Test
 	public void shouldAddMultipleKeyValuePairsToCookie()
 			throws KeyAlreadyExistsException {
-		CookieBakery bakery = new CookieBakery();
 		Cookie cookie = bakery.bakePersistentCookie();
-		bakery.addKeyValuePair(cookie, key1, value1);
-		bakery.addKeyValuePair(cookie, key2, value2);
+		cookie = bakery.addKeyValuePair(cookie, key1, value1);
+		cookie = bakery.addKeyValuePair(cookie, key2, value2);
 		assertEquals(key2 + is + value2 + and + key1 + is + value1,
 				cookie.getValue());
 	}
@@ -71,37 +70,34 @@ public class CookieBakeryTest {
 	@Test
 	public void shouldRemoveKeyValuePairsToCookie()
 			throws KeyAlreadyExistsException {
-		CookieBakery bakery = new CookieBakery();
 		Cookie cookie = bakery.bakePersistentCookie();
-		bakery.addKeyValuePair(cookie, key1, value1);
-		bakery.addKeyValuePair(cookie, key2, value2);
-		bakery.addKeyValuePair(cookie, key3, value3);
-		bakery.removeKey(cookie, key2);
+		cookie = bakery.addKeyValuePair(cookie, key1, value1);
+		cookie = bakery.addKeyValuePair(cookie, key2, value2);
+		cookie = bakery.addKeyValuePair(cookie, key3, value3);
+		cookie = bakery.removeKey(cookie, key2);
 		assertEquals(key3 + is + value3 + and + key1 + is + value1,
 				cookie.getValue());
 	}
 
 	@Test
 	public void shouldUpdateValueInCookie() throws KeyAlreadyExistsException, KeyDoesNotExistException {
-		CookieBakery bakery = new CookieBakery();
 		Cookie cookie = bakery.bakePersistentCookie();
-		bakery.addKeyValuePair(cookie, key1, value1);
-		bakery.addKeyValuePair(cookie, key2, value2);
-		bakery.addKeyValuePair(cookie, key3, value3);
+		cookie = bakery.addKeyValuePair(cookie, key1, value1);
+		cookie = bakery.addKeyValuePair(cookie, key2, value2);
+		cookie = bakery.addKeyValuePair(cookie, key3, value3);
 		String newValue = "newValue";
-		bakery.updateKeyValue(cookie, key2, newValue);
+		cookie = bakery.updateKeyValue(cookie, key2, newValue);
 		assertEquals(key3 + is + value3 + and + key2 + is + newValue + and + key1 + is + value1,
 				cookie.getValue());
 	}
 	
 	@Test
 	public void shouldGetValueInCookieForAGivenKey() throws KeyAlreadyExistsException, KeyDoesNotExistException, MakeItSecretException {
-		CookieBakery bakery = new CookieBakery();
 		Cookie cookie = bakery.bakePersistentCookie();
-		bakery.addKeyValuePair(cookie, key1, value1);
-		bakery.addKeyValuePair(cookie, key2, value2);
-		bakery.addKeyValuePair(cookie, key3, value3);
+		cookie = bakery.addKeyValuePair(cookie, key1, value1);
+		cookie = bakery.addKeyValuePair(cookie, key2, value2);
+		cookie = bakery.addKeyValuePair(cookie, key3, value3);
 		assertEquals(value2, bakery.getValue(cookie,key2));
 	}
-
+	
 }

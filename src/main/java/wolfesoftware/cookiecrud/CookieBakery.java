@@ -4,7 +4,6 @@ import javax.servlet.http.Cookie;
 
 import org.springframework.stereotype.Component;
 
-import wolfesoftware.cryptography.exception.MakeItSecretException;
 import wolfesoftware.keyvalueasstring.KeyValueAsStringBuilder;
 import wolfesoftware.keyvalueasstring.exception.KeyAlreadyExistsException;
 import wolfesoftware.keyvalueasstring.exception.KeyDoesNotExistException;
@@ -13,9 +12,10 @@ import wolfesoftware.keyvalueasstring.exception.KeyDoesNotExistException;
 @Component
 public class CookieBakery {
 	
-	private char and = ';';
+	private char and = ',';
 	private char is = '=';
-	
+	private final int defaultCookieAge = 60*60*24;
+
 	public CookieBakery(){
 	}
 
@@ -30,16 +30,24 @@ public class CookieBakery {
 	
 	public Cookie bakePersistentCookie(String name) {
 		Cookie cookie = new Cookie(name, "");
-		cookie.setMaxAge(Integer.MAX_VALUE);
+		cookie.setMaxAge(defaultCookieAge);
 		cookie.setPath("/");
 		return cookie;
 	}
-
+	
+	public Cookie bakePersistentCookie(String name, String value) {
+		Cookie cookie = new Cookie(name, "");
+		cookie.setMaxAge(defaultCookieAge);
+		cookie.setPath("/");
+		cookie.setValue(value);
+		return cookie;
+	}
+	
 	public Cookie addKeyValuePair(Cookie cookie, String key, String value) throws KeyAlreadyExistsException {
 		String cookieValue = cookie.getValue();
 		KeyValueAsStringBuilder cookieValues = new KeyValueAsStringBuilder(and, is, cookieValue);
 		cookieValues.addKeyValue(key, value);
-		cookie.setValue(cookieValues.toString());
+		cookie = bakePersistentCookie(cookie.getName(), cookieValues.toString());
 		return cookie;
 	}
 	
@@ -47,7 +55,7 @@ public class CookieBakery {
 		String cookieValue = cookie.getValue();
 		KeyValueAsStringBuilder cookieValues = new KeyValueAsStringBuilder(and, is, cookieValue);
 		cookieValues.removeKey(key);
-		cookie.setValue(cookieValues.toString());
+		cookie = bakePersistentCookie(cookie.getName(), cookieValues.toString());
 		return cookie;
 	}
 
@@ -55,7 +63,7 @@ public class CookieBakery {
 		String cookieValue = cookie.getValue();
 		KeyValueAsStringBuilder cookieValues = new KeyValueAsStringBuilder(and, is, cookieValue);
 		cookieValues.updateValue(key, newValue);
-		cookie.setValue(cookieValues.toString());
+		cookie = bakePersistentCookie(cookie.getName(), cookieValues.toString());
 		return cookie;
 	}
 
@@ -65,9 +73,14 @@ public class CookieBakery {
 	}
 
 	public Cookie makeCookieDie(Cookie cookie) {
+		cookie = bakePersistentCookie(cookie.getName(), "");
 		cookie.setMaxAge(0);
-		cookie.setValue("");
 		return cookie;
 	}
+	
+	public int getDefaultCookieAge() {
+		return defaultCookieAge;
+	}
+
 
 }
