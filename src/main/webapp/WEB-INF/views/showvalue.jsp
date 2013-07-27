@@ -5,12 +5,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>CookieCreateReadUpdateDelete</title>
+        <title>client</title>
         <link type="text/css" rel="stylesheet" href="resources/style.css">
     </head>
     <body>
         <div class="value">
-			${value}
+			${cookieName} has shared value: ${key} = ${value}
 		</div>
     </body>
 </html>
