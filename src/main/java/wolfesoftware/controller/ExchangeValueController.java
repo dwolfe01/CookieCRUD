@@ -17,8 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class ExchangeValueController {
 
 	String defaultCookieName = "chocco";
-	String cookieCrudController = "http://localhost:9090";
-	String me = "http://localhost:1010";
+	String cookieCrudController = "http://192.168.56.31:9999";
+	String me = "http://localhost:9090";
 	
 
 	@RequestMapping(value = "/sharevalue/{key}/{value}")
