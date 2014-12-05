@@ -31,8 +31,7 @@ public class CookieController {
 	}
 
 	@RequestMapping(value = "/showcookies")
-	public ModelAndView showCookies(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	public ModelAndView showCookies(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		List<String> cookies = new ArrayList<String>();
 		getCookiesAsStringArray(request, cookies);
 		ModelAndView modelAndView = new ModelAndView("showcookies");
@@ -41,35 +40,24 @@ public class CookieController {
 	}
 
 	@RequestMapping(value = "/addcookie/{cookieName}/{key}/{value}")
-	public void addCookie(HttpServletRequest request,
-			HttpServletResponse response, @PathVariable String cookieName,
-			@PathVariable String key, @PathVariable String value,
-			@RequestParam(defaultValue = "/showcookies") String redirectTo)
-			throws IOException, KeyAlreadyExistsException {
+	public void addCookie(HttpServletRequest request, HttpServletResponse response, @PathVariable String cookieName, @PathVariable String key,
+			@PathVariable String value, @RequestParam(defaultValue = "/showcookies") String redirectTo) throws IOException, KeyAlreadyExistsException {
 		Cookie cookie = bakery.bakePersistentCookie(cookieName);
 		cookie = bakery.addKeyValuePair(cookie, key, value);
 		response.addCookie(cookie);
-		response.sendRedirect(redirectTo + "?cookieName=" + cookieName + ""
-				+ "&key=" + key + "&value=" + value);
+		response.sendRedirect(redirectTo + "?cookieName=" + cookieName + "" + "&key=" + key + "&value=" + value);
 	}
 
 	@RequestMapping(value = "/getvaluefromcookie/{cookieName}/{key}")
-	public void getValueByCookieAndKey(HttpServletRequest request,
-			HttpServletResponse response, @PathVariable String cookieName,
-			@PathVariable String key,
-			@RequestParam(defaultValue = "/showcookies") String redirectTo)
-			throws IOException, KeyAlreadyExistsException {
+	public void getValueByCookieAndKey(HttpServletRequest request, HttpServletResponse response, @PathVariable String cookieName, @PathVariable String key,
+			@RequestParam(defaultValue = "/showcookies") String redirectTo) throws IOException, KeyAlreadyExistsException {
 		Cookie cookie = getCookieFromRequest(request, cookieName);
-		response.sendRedirect(redirectTo + "?cookieName=" + cookieName + ""
-				+ "&key=" + key + "&value=" + bakery.getValue(cookie, key));
+		response.sendRedirect(redirectTo + "?cookieName=" + cookieName + "" + "&key=" + key + "&value=" + bakery.getValue(cookie, key));
 	}
 
 	@RequestMapping(value = "/addvalue/{cookieName}/{key}/{value}")
-	public void addValueToCookie(HttpServletRequest request,
-			HttpServletResponse response, @PathVariable String cookieName,
-			@PathVariable String key, @PathVariable String value)
-			throws IOException, KeyAlreadyExistsException,
-			CookieControllerException {
+	public void addValueToCookie(HttpServletRequest request, HttpServletResponse response, @PathVariable String cookieName, @PathVariable String key,
+			@PathVariable String value) throws IOException, KeyAlreadyExistsException, CookieControllerException {
 		Cookie cookie = getCookieFromRequest(request, cookieName);
 		if (cookie == null) {
 			throw new CookieControllerException("Cookie does not exist");
@@ -80,11 +68,8 @@ public class CookieController {
 	}
 
 	@RequestMapping(value = "/updatevalue/{cookieName}/{key}/{value}")
-	public void updateValueInCookie(HttpServletRequest request,
-			HttpServletResponse response, @PathVariable String cookieName,
-			@PathVariable String key, @PathVariable String value)
-			throws IOException, KeyAlreadyExistsException,
-			CookieControllerException, KeyDoesNotExistException {
+	public void updateValueInCookie(HttpServletRequest request, HttpServletResponse response, @PathVariable String cookieName, @PathVariable String key,
+			@PathVariable String value) throws IOException, KeyAlreadyExistsException, CookieControllerException, KeyDoesNotExistException {
 		Cookie cookie = getCookieFromRequest(request, cookieName);
 		if (cookie == null) {
 			throw new CookieControllerException("Cookie does not exist");
@@ -95,11 +80,8 @@ public class CookieController {
 	}
 
 	@RequestMapping(value = "/deletebykey/{cookieName}/{key}")
-	public void deleteValueInCookie(HttpServletRequest request,
-			HttpServletResponse response, @PathVariable String cookieName,
-			@PathVariable String key) throws IOException,
-			KeyAlreadyExistsException, CookieControllerException,
-			KeyDoesNotExistException {
+	public void deleteValueInCookie(HttpServletRequest request, HttpServletResponse response, @PathVariable String cookieName, @PathVariable String key)
+			throws IOException, KeyAlreadyExistsException, CookieControllerException, KeyDoesNotExistException {
 		Cookie cookie = getCookieFromRequest(request, cookieName);
 		if (cookie == null) {
 			throw new CookieControllerException("Cookie does not exist");
@@ -110,10 +92,8 @@ public class CookieController {
 	}
 
 	@RequestMapping(value = "/removecookie/{cookieName}")
-	public void removeCookie(HttpServletRequest request,
-			HttpServletResponse response, @PathVariable String cookieName)
-			throws IOException, KeyAlreadyExistsException,
-			CookieControllerException {
+	public void removeCookie(HttpServletRequest request, HttpServletResponse response, @PathVariable String cookieName) throws IOException,
+			KeyAlreadyExistsException, CookieControllerException {
 		Cookie cookie = getCookieFromRequest(request, cookieName);
 		if (cookie == null) {
 			throw new CookieControllerException("Cookie does not exist");
@@ -123,8 +103,7 @@ public class CookieController {
 		response.sendRedirect("/showcookies");
 	}
 
-	private Cookie getCookieFromRequest(HttpServletRequest request,
-			String cookieName) {
+	private Cookie getCookieFromRequest(HttpServletRequest request, String cookieName) {
 		for (Cookie cookie : request.getCookies()) {
 			if (cookie.getName().equals(cookieName))
 				return cookie;
@@ -132,8 +111,7 @@ public class CookieController {
 		return null;
 	}
 
-	private void getCookiesAsStringArray(HttpServletRequest request,
-			List<String> cookies) {
+	private void getCookiesAsStringArray(HttpServletRequest request, List<String> cookies) {
 		if (!(null == request.getCookies())) {
 			for (Cookie cookie : request.getCookies()) {
 				cookies.add(getCookieAsString(cookie));

@@ -19,33 +19,21 @@ public class ExchangeValueController {
 	String defaultCookieName = "chocco";
 	String cookieCrudController = "http://192.168.56.31:9999";
 	String me = "http://localhost:9090";
-	
 
 	@RequestMapping(value = "/sharevalue/{key}/{value}")
-	public void addValue(HttpServletRequest request,
-			HttpServletResponse response, @PathVariable String key,
-			@PathVariable String value) throws IOException {
+	public void addValue(HttpServletRequest request, HttpServletResponse response, @PathVariable String key, @PathVariable String value) throws IOException {
 		// TODO use String format
-		response.sendRedirect(cookieCrudController + "/addcookie/"
-				+ defaultCookieName + "/" + key + "/" + value
-				+ "?redirectTo=" + me +"/showvalue");
+		response.sendRedirect(cookieCrudController + "/addcookie/" + defaultCookieName + "/" + key + "/" + value + "?redirectTo=" + me + "/showvalue");
 	}
 
 	@RequestMapping(value = "/getvalue/{key}")
-	public void getValue(HttpServletRequest request,
-			HttpServletResponse response, @PathVariable String key)
-			throws IOException {
-		response.sendRedirect(cookieCrudController + "/getvaluefromcookie/"
-				+ defaultCookieName + "/" + key
-				+ "?redirectTo=" + me +"/showvalue");
+	public void getValue(HttpServletRequest request, HttpServletResponse response, @PathVariable String key) throws IOException {
+		response.sendRedirect(cookieCrudController + "/getvaluefromcookie/" + defaultCookieName + "/" + key + "?redirectTo=" + me + "/showvalue");
 	}
 
 	@RequestMapping(value = "/showvalue")
-	public ModelAndView showValue(HttpServletRequest request,
-			@RequestParam(defaultValue = "cookieName") String cookieName,
-			@RequestParam(defaultValue = "key") String key,
-			@RequestParam(defaultValue = "value") String value)
-			throws IOException {
+	public ModelAndView showValue(HttpServletRequest request, @RequestParam(defaultValue = "cookieName") String cookieName,
+			@RequestParam(defaultValue = "key") String key, @RequestParam(defaultValue = "value") String value) throws IOException {
 		ModelAndView modelAndView = new ModelAndView("showvalue");
 		modelAndView.addObject("cookieName", cookieName);
 		modelAndView.addObject("key", key);

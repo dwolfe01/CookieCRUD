@@ -10,11 +10,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import wolfesoftware.cryptography.exception.MakeItSecretException;
 import wolfesoftware.keyvalueasstring.exception.KeyAlreadyExistsException;
 import wolfesoftware.keyvalueasstring.exception.KeyDoesNotExistException;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/spring/application-context.xml")
 public class EncryptedCookieBakeryTest {
@@ -29,7 +30,6 @@ public class EncryptedCookieBakeryTest {
 	private String value3 = "chocolate";
 	private final char and = ';';
 	private final char is = '=';
-	
 
 	@Before
 	public void before() {
@@ -46,43 +46,38 @@ public class EncryptedCookieBakeryTest {
 	}
 
 	@Test
-	public void shouldWriteKeyValuePairToEmptyCookie()
-			throws KeyAlreadyExistsException {
+	public void shouldWriteKeyValuePairToEmptyCookie() throws KeyAlreadyExistsException {
 		Cookie cookie = bakery.bakePersistentCookie();
 		cookie = bakery.addKeyValuePair(cookie, key1, value1);
 		assertEquals(key1 + is + value1, cookie.getValue());
 	}
-	
+
 	@Test
-	public void shouldDeleteCookieBySettingMaxAgeToZero() throws KeyAlreadyExistsException{
+	public void shouldDeleteCookieBySettingMaxAgeToZero() throws KeyAlreadyExistsException {
 		Cookie cookie = bakery.bakePersistentCookie();
 		cookie = bakery.addKeyValuePair(cookie, key1, value1);
 		cookie = bakery.makeCookieDie(cookie);
 		assertEquals("/", cookie.getPath());
-		assertEquals(0,	cookie.getMaxAge());
+		assertEquals(0, cookie.getMaxAge());
 		assertEquals("", cookie.getValue());
 	}
 
 	@Test
-	public void shouldAddMultipleKeyValuePairsToCookie()
-			throws KeyAlreadyExistsException {
+	public void shouldAddMultipleKeyValuePairsToCookie() throws KeyAlreadyExistsException {
 		Cookie cookie = bakery.bakePersistentCookie();
 		cookie = bakery.addKeyValuePair(cookie, key1, value1);
 		cookie = bakery.addKeyValuePair(cookie, key2, value2);
-		assertEquals(key2 + is + value2 + and + key1 + is + value1,
-				cookie.getValue());
+		assertEquals(key1 + is + value1 + and + key2 + is + value2, cookie.getValue());
 	}
 
 	@Test
-	public void shouldRemoveKeyValuePairsToCookie()
-			throws KeyAlreadyExistsException {
+	public void shouldRemoveKeyValuePairsToCookie() throws KeyAlreadyExistsException {
 		Cookie cookie = bakery.bakePersistentCookie();
 		cookie = bakery.addKeyValuePair(cookie, key1, value1);
 		cookie = bakery.addKeyValuePair(cookie, key2, value2);
 		cookie = bakery.addKeyValuePair(cookie, key3, value3);
 		cookie = bakery.removeKey(cookie, key2);
-		assertEquals(key3 + is + value3 + and + key1 + is + value1,
-				cookie.getValue());
+		assertEquals(key1 + is + value1 + and + key3 + is + value3, cookie.getValue());
 	}
 
 	@Test
@@ -93,17 +88,16 @@ public class EncryptedCookieBakeryTest {
 		cookie = bakery.addKeyValuePair(cookie, key3, value3);
 		String newValue = "newValue";
 		cookie = bakery.updateKeyValue(cookie, key2, newValue);
-		assertEquals(key3 + is + value3 + and + key2 + is + newValue + and + key1 + is + value1,
-				cookie.getValue());
+		assertEquals(key1 + is + value1 + and + key2 + is + newValue + and + key3 + is + value3, cookie.getValue());
 	}
-	
+
 	@Test
 	public void shouldGetValueInCookieForAGivenKey() throws KeyAlreadyExistsException, KeyDoesNotExistException, MakeItSecretException {
 		Cookie cookie = bakery.bakePersistentCookie();
 		cookie = bakery.addKeyValuePair(cookie, key1, value1);
 		cookie = bakery.addKeyValuePair(cookie, key2, value2);
 		cookie = bakery.addKeyValuePair(cookie, key3, value3);
-		assertEquals(value2, bakery.getValue(cookie,key2));
+		assertEquals(value2, bakery.getValue(cookie, key2));
 	}
-	
+
 }

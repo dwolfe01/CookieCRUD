@@ -1,8 +1,9 @@
 package wolfesoftware.keyvalueasstring;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import wolfesoftware.keyvalueasstring.exception.KeyAlreadyExistsException;
 import wolfesoftware.keyvalueasstring.exception.KeyDoesNotExistException;
@@ -11,7 +12,7 @@ public class KeyValueAsStringBuilder {
 
 	private char and = ';';
 	private char is = '=';
-	HashMap<String, String> map = new HashMap<String, String>();
+	Map<String, String> map = new TreeMap<String, String>();
 
 	public KeyValueAsStringBuilder() {
 
@@ -40,11 +41,9 @@ public class KeyValueAsStringBuilder {
 		}
 	}
 
-	public KeyValueAsStringBuilder addKeyValue(String key, String value)
-			throws KeyAlreadyExistsException {
+	public KeyValueAsStringBuilder addKeyValue(String key, String value) throws KeyAlreadyExistsException {
 		if (map.containsKey(key))
-			throw new KeyAlreadyExistsException(
-					"Cannot add the same key to the map");
+			throw new KeyAlreadyExistsException("Cannot add the same key to the map");
 		map.put(key, value);
 		return this;
 	}
@@ -58,13 +57,11 @@ public class KeyValueAsStringBuilder {
 		return map.get(key);
 	}
 
-	public KeyValueAsStringBuilder updateValue(String key, String newValue)
-			throws KeyDoesNotExistException {
+	public KeyValueAsStringBuilder updateValue(String key, String newValue) throws KeyDoesNotExistException {
 		if (map.containsKey(key)) {
 			map.put(key, newValue);
 		} else {
-			throw new KeyDoesNotExistException(
-					"Cannot update a non-existant key");
+			throw new KeyDoesNotExistException("Cannot update a non-existant key");
 		}
 		return this;
 	}
