@@ -13,5 +13,11 @@
 	<aop:aspectj-autoproxy />
 	<mvc:annotation-driven />
 	<context:component-scan base-package="wolfesoftware"/>
+	
+	<bean id="encryptedCookieBakery" class="wolfesoftware.cookiecrud.EncryptedCookieBakery">
+		<constructor-arg value=";"/>
+		<constructor-arg value="="/>
+	</bean>
+	
 
 </beans>

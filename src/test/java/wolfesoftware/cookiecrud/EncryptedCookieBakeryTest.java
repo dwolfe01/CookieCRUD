@@ -17,7 +17,7 @@ import wolfesoftware.keyvalueasstring.exception.KeyAlreadyExistsException;
 import wolfesoftware.keyvalueasstring.exception.KeyDoesNotExistException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:/spring/application-context.xml")
+@ContextConfiguration(locations = "/spring/test-application-context.xml")
 public class EncryptedCookieBakeryTest {
 
 	@Resource
