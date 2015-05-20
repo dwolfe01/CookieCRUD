@@ -10,25 +10,34 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-//http://localhost:9090/showvalue?cookieName=chocco&key=tamsyn&value=pumpkin
-//http://localhost:9090/getvalue/tamsyn
 
+/*
+ * This is aware of the cookieCrudServer
+ * Will set a value on the cookieCrudServer
+ * Can we be used to retrieve a value from the cookieCrudServer
+ */
 @Controller
 public class ExchangeValueController {
 
-	String defaultCookieName = "chocco";
-	String cookieCrudController = "http://localhost:9090";
-	String me = "http://localhost:9092";
+	String defaultCookieName;
+	String cookieCrudServer;
+	String me;
+	
+	public ExchangeValueController(String defaultCookieName, String cookieCrudServer, String me){
+		this.defaultCookieName = defaultCookieName;
+		this.cookieCrudServer = cookieCrudServer;
+		this.me = me;
+	}
 
 	@RequestMapping(value = "/sharevalue/{key}/{value}")
 	public void addValue(HttpServletRequest request, HttpServletResponse response, @PathVariable String key, @PathVariable String value) throws IOException {
 		// TODO use String format
-		response.sendRedirect(cookieCrudController + "/addcookie/" + defaultCookieName + "/" + key + "/" + value + "?redirectTo=" + me + "/showvalue");
+		response.sendRedirect(cookieCrudServer + "/addcookie/" + defaultCookieName + "/" + key + "/" + value + "?redirectTo=" + me + "/showvalue");
 	}
 
 	@RequestMapping(value = "/getvalue/{key}")
 	public void getValue(HttpServletRequest request, HttpServletResponse response, @PathVariable String key) throws IOException {
-		response.sendRedirect(cookieCrudController + "/getvaluefromcookie/" + defaultCookieName + "/" + key + "?redirectTo=" + me + "/showvalue");
+		response.sendRedirect(cookieCrudServer + "/getvaluefromcookie/" + defaultCookieName + "/" + key + "?redirectTo=" + me + "/showvalue");
 	}
 
 	@RequestMapping(value = "/showvalue")

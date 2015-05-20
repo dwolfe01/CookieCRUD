@@ -66,6 +66,7 @@ Supported Browsers:
 Usage:
 
 Start the jetty servlet container on port 9090 and you can access this by http://localhost:9090/showcookies
+This will be the cookie crud server.
 
 mvn -Djetty.port=9090 jetty:run 
 Add these parameters to MAVEN_OPTS to debug
@@ -76,7 +77,8 @@ http://localhost:9090/getvaluefromcookie/chocco/choc
 
 The strength here is that value can be accessed from a different website.
 Probably best to use a different browser to test (some browsers don't differentiate between ports for cookies)
-Start a new instances of jetty on a different port e.g. 9091/9092
+Start a new instances of jetty on a different port e.g. 9091/9092. These instances need to be aware of the cookie crud server.
+
 Share info between websites:
 
 ==========
