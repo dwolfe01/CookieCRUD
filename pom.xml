@@ -43,8 +43,8 @@
 			</plugin>
 			<plugin>
 				<configuration>
-					<scanIntervalSeconds>10</scanIntervalSeconds>
-				</configuration>
+       				 <reload>manual</reload>
+    			</configuration>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>${jettyVersion}</version>
