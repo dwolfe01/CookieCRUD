@@ -1,8 +1,6 @@
 package wolfesoftware.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import wolfesoftware.controller.exception.CookieControllerException;
 import wolfesoftware.cookiecrud.CookieBakery;
@@ -21,22 +18,14 @@ import wolfesoftware.keyvalueasstring.exception.KeyAlreadyExistsException;
 import wolfesoftware.keyvalueasstring.exception.KeyDoesNotExistException;
 
 @Controller
-public class CookieController {
+public class CookieServerController {
+
 
 	private final CookieBakery bakery;
 
 	@Autowired
-	public CookieController(CookieBakery bakery) {
+	public CookieServerController(CookieBakery bakery) {
 		this.bakery = bakery;
-	}
-
-	@RequestMapping(value = "/showcookies")
-	public ModelAndView showCookies(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		List<String> cookies = new ArrayList<String>();
-		getCookiesAsStringArray(request, cookies);
-		ModelAndView modelAndView = new ModelAndView("showcookies");
-		modelAndView.addObject("listOfCookies", cookies);
-		return modelAndView;
 	}
 
 	@RequestMapping(value = "/addcookie/{cookieName}/{key}/{value}")
@@ -111,15 +100,4 @@ public class CookieController {
 		return null;
 	}
 
-	private void getCookiesAsStringArray(HttpServletRequest request, List<String> cookies) {
-		if (!(null == request.getCookies())) {
-			for (Cookie cookie : request.getCookies()) {
-				cookies.add(getCookieAsString(cookie));
-			}
-		}
-	}
-
-	private String getCookieAsString(Cookie cookie) {
-		return "name:" + cookie.getName() + " value:" + cookie.getValue();
-	}
 }

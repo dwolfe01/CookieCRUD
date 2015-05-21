@@ -20,7 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.servlet.ModelAndView;
 
-import wolfesoftware.controller.CookieController;
+import wolfesoftware.controller.CookieClientController;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,7 +28,7 @@ import wolfesoftware.controller.CookieController;
 public class CookieControllerTest {
 
 	@Resource
-	CookieController cookieController;
+	CookieClientController cookieController;
 	@Mock
 	MockHttpServletRequest request;
 	@Mock
