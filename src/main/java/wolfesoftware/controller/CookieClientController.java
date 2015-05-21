@@ -25,14 +25,14 @@ public class CookieClientController {
 	String defaultCookieName;
 	String cookieCrudServer;
 	String me;
-	
-	public CookieClientController(String defaultCookieName, String cookieCrudServer, String me){
+
+	public CookieClientController(String defaultCookieName, String cookieCrudServer, String me) {
 		this.defaultCookieName = defaultCookieName;
 		this.cookieCrudServer = cookieCrudServer;
 		this.me = me;
 	}
-	
-	@RequestMapping(value = {"/showcookies","/"})
+
+	@RequestMapping(value = { "/showcookies", "/" })
 	public ModelAndView showCookies(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		List<String> cookies = new ArrayList<String>();
 		getCookiesAsStringArray(request, cookies);
@@ -40,7 +40,7 @@ public class CookieClientController {
 		modelAndView.addObject("listOfCookies", cookies);
 		return modelAndView;
 	}
-	
+
 	private void getCookiesAsStringArray(HttpServletRequest request, List<String> cookies) {
 		if (!(null == request.getCookies())) {
 			for (Cookie cookie : request.getCookies()) {
@@ -48,11 +48,10 @@ public class CookieClientController {
 			}
 		}
 	}
-	
+
 	private String getCookieAsString(Cookie cookie) {
 		return "name:" + cookie.getName() + " value:" + cookie.getValue();
 	}
-	
 
 	@RequestMapping(value = "/sharevalue/{key}/{value}")
 	public void addValue(HttpServletRequest request, HttpServletResponse response, @PathVariable String key, @PathVariable String value) throws IOException {
@@ -69,6 +68,7 @@ public class CookieClientController {
 	public ModelAndView showValue(HttpServletRequest request, @RequestParam(defaultValue = "cookieName") String cookieName,
 			@RequestParam(defaultValue = "key") String key, @RequestParam(defaultValue = "value") String value) throws IOException {
 		ModelAndView modelAndView = new ModelAndView("showvalue");
+		modelAndView.addObject("aboutMe", "Server: " + cookieCrudServer + " me: " + me);
 		modelAndView.addObject("cookieName", cookieName);
 		modelAndView.addObject("key", key);
 		modelAndView.addObject("value", value);

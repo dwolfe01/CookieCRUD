@@ -19,10 +19,10 @@
 		<constructor-arg value="="/>
 	</bean>
 	
-	<bean id="exchangeValueController" class="wolfesoftware.controller.ExchangeValueController">
+	<bean id="cookieClientController" class="wolfesoftware.controller.CookieClientController">
 		<constructor-arg value="chocco"/>
-		<constructor-arg value="http://localhost:9090"/>
-		<constructor-arg value="http://localhost:9091"/>
+		<constructor-arg value="http://someServerValue"/>
+		<constructor-arg value="http://me"/>
 	</bean>
 	
 

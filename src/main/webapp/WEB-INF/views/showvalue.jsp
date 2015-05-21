@@ -9,6 +9,9 @@
         <link type="text/css" rel="stylesheet" href="resources/style.css">
     </head>
     <body>
+    	<div class="about">
+    		${aboutMe}
+    	</div>
         <div class="value">
 			${cookieName} has shared value: ${key} = ${value}
 		</div>

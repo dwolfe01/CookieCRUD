@@ -12,6 +12,7 @@
     
 	<aop:aspectj-autoproxy />
 	<mvc:annotation-driven />
+	<context:property-placeholder/>
 	<context:component-scan base-package="wolfesoftware"/>
 
 	<mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
@@ -31,7 +32,7 @@
 		<constructor-arg value="="/>
 	</bean>
 	
-	<bean id="exchangeValueController" class="wolfesoftware.controller.ExchangeValueController">
+	<bean id="cookieClientController" class="wolfesoftware.controller.CookieClientController">
 		<constructor-arg value="chocco"/>
 		<constructor-arg value="${server}"/>
 		<constructor-arg value="${me}"/>
