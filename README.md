@@ -68,7 +68,7 @@ Usage:
 Start the jetty servlet container on port 9090 and you can access this by http://localhost:9090/showcookies
 This will be the cookie crud server.
 
-mvn -Djetty.port=9090 jetty:run 
+mvn -Djetty.port=9090 jetty:run -Dserver=http://someserver.com -Dme=http://localhost:9090
 Add these parameters to MAVEN_OPTS to debug
 -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=4000,server=y,suspend=y 
 
