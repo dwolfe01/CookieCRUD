@@ -1,4 +1,4 @@
-package wolfesoftware.cookiecrud;
+package wolfesoftware.cookiebakery;
 
 import javax.servlet.http.Cookie;
 

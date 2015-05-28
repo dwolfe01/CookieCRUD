@@ -1,27 +1,21 @@
-package wolfesoftware.cookiecrud;
+package wolfesoftware.cookiebakery;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import wolfesoftware.cookiebakery.CookieBakery;
 import wolfesoftware.cryptography.exception.MakeItSecretException;
 import wolfesoftware.keyvalueasstring.exception.KeyAlreadyExistsException;
 import wolfesoftware.keyvalueasstring.exception.KeyDoesNotExistException;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/spring/test-application-context.xml")
-public class EncryptedCookieBakeryTest {
+public class CookieBakeryTest {
 
-	@Resource
-	EncryptedCookieBakery bakery;
+	CookieBakery bakery;
 	private String key1 = "key1";
 	private String value1 = "yummy1";
 	private String key2 = "key2";
@@ -34,6 +28,7 @@ public class EncryptedCookieBakeryTest {
 	@Before
 	public void before() {
 		MockitoAnnotations.initMocks(this);
+		bakery = new CookieBakery(and, is);
 	}
 
 	@Test

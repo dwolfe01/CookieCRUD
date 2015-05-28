@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import wolfesoftware.controller.exception.CookieControllerException;
-import wolfesoftware.cookiecrud.CookieBakery;
+import wolfesoftware.cookiebakery.CookieBakery;
 import wolfesoftware.keyvalueasstring.exception.KeyAlreadyExistsException;
 import wolfesoftware.keyvalueasstring.exception.KeyDoesNotExistException;
 

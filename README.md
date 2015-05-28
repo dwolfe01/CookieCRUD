@@ -1,4 +1,4 @@
-CookieCRUD is a central session server for holding user information.
+CookieCRUD is a central session server for holding user/session information.
 
 ==========
 This provides functionality for 
@@ -7,7 +7,6 @@ This provides functionality for
 3. decryption of those values using a symetric key
 4. storing cookie values and later retrieving them
 5. sharing user information across different domains
-
 ==========
 
 Use Case 1: store info on CookieCRUD and then later retrieve it.
@@ -43,7 +42,9 @@ cookieCRUD could output some advertising embedded in the return to page, and for
 Admin areas for websites
 Admin areas for users who want to exclude themselves from cookieCRUD or see what information is being stored about them
 Central login on CookieCRUD 
-
+Document database to store centralised session information
+Illustrated testing
+One pixel controller for setting values on the cookiecrudserver
 ==========
 
 Concerns:

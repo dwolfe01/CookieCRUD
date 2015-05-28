@@ -27,7 +27,7 @@
         </property>
     </bean>
 
-	<bean id="encryptedCookieBakery" class="wolfesoftware.cookiecrud.EncryptedCookieBakery">
+	<bean id="encryptedCookieBakery" class="wolfesoftware.cookiebakery.EncryptedCookieBakery">
 		<constructor-arg value=";"/>
 		<constructor-arg value="="/>
 	</bean>

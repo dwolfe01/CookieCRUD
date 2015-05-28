@@ -14,7 +14,7 @@
 	<mvc:annotation-driven />
 	<context:component-scan base-package="wolfesoftware"/>
 	
-	<bean id="encryptedCookieBakery" class="wolfesoftware.cookiecrud.EncryptedCookieBakery">
+	<bean id="encryptedCookieBakery" class="wolfesoftware.cookiebakery.EncryptedCookieBakery">
 		<constructor-arg value=";"/>
 		<constructor-arg value="="/>
 	</bean>
