@@ -83,3 +83,11 @@ Start a new instances of jetty on a different port e.g. 9091/9092. These instanc
 Share info between websites:
 
 ==========
+
+Tips
+For testing add entries to your /etc/hosts
+127.0.0.1       localhost
+127.0.0.1       cookiecrud
+255.255.255.255 broadcasthost
+::1             localhost
+fe80::1%lo0     localhost

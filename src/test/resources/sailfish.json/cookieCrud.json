@@ -1,0 +1,17 @@
+[{
+	"id": "CookieCrud User",
+	"requests": 
+	[
+		["http://127.0.0.1:9090/showcookies"],
+		["http://this:9091/showcookies"],
+		["http://localhost:9092/showcookies"],
+		["http://127.0.0.1:9090/showcookies"],
+		["http://this:9091/showcookies"],
+		["http://localhost:9092/showcookies"],
+		["http://this:9091/sharevalue/perfomance/very_good"],
+		["http://localhost:9092/getvalue/perfomance"],
+		["http://this:9091/showcookies"],
+		["http://localhost:9092/showcookies"],
+		["http://127.0.0.1:9090/showcookies"]
+	]
+}]
