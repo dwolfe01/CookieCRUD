@@ -9,6 +9,7 @@
 		["http://this:9091/showcookies"],
 		["http://localhost:9092/showcookies"],
 		["http://this:9091/sharevalue/perfomance/very_good"],
+		["http://this:9091/addvalue/dan/computer_scientist"],
 		["http://localhost:9092/getvalue/perfomance"],
 		["http://this:9091/showcookies"],
 		["http://localhost:9092/showcookies"],
