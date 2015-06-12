@@ -34,29 +34,22 @@ public class CookieClientController {
 
 	@RequestMapping(value = { "/showcookies", "/" })
 	public ModelAndView showCookies(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		List<String> cookies = new ArrayList<String>();
-		getCookiesAsStringArray(request, cookies);
 		ModelAndView modelAndView = new ModelAndView("showcookies");
-		modelAndView.addObject("listOfCookies", cookies);
+		modelAndView.addObject("listOfCookies", getCookiesAsStringArray(request));
 		return modelAndView;
 	}
 
-	private void getCookiesAsStringArray(HttpServletRequest request, List<String> cookies) {
-		if (!(null == request.getCookies())) {
-			for (Cookie cookie : request.getCookies()) {
-				cookies.add(getCookieAsString(cookie));
-			}
-		}
-	}
-
-	private String getCookieAsString(Cookie cookie) {
-		return "name:" + cookie.getName() + " value:" + cookie.getValue();
-	}
-
 	@RequestMapping(value = "/sharevalue/{key}/{value}")
-	public void addValue(HttpServletRequest request, HttpServletResponse response, @PathVariable String key, @PathVariable String value) throws IOException {
+	public void shareValue(HttpServletRequest request, HttpServletResponse response, @PathVariable String key, @PathVariable String value) throws IOException {
 		// TODO use String format
 		response.sendRedirect(cookieCrudServer + "/addcookie/" + defaultCookieName + "/" + key + "/" + value + "?redirectTo=" + me + "/showvalue");
+	}
+	
+
+	@RequestMapping(value = "/addvalue/{key}/{value}")
+	public void addValue(HttpServletRequest request, HttpServletResponse response, @PathVariable String key, @PathVariable String value) throws IOException {
+		// TODO use String format
+		response.sendRedirect(cookieCrudServer + "/addvalue/" + defaultCookieName + "/" + key + "/" + value + "?redirectTo=" + me + "/showvalue");
 	}
 
 	@RequestMapping(value = "/getvalue/{key}")
@@ -73,6 +66,20 @@ public class CookieClientController {
 		modelAndView.addObject("key", key);
 		modelAndView.addObject("value", value);
 		return modelAndView;
+	}
+	
+	private List<String> getCookiesAsStringArray(HttpServletRequest request) {
+		List<String> cookies = new ArrayList<String>();
+		if (!(null == request.getCookies())) {
+			for (Cookie cookie : request.getCookies()) {
+				cookies.add(getCookieAsString(cookie));
+			}
+		}
+		return cookies;
+	}
+	
+	private String getCookieAsString(Cookie cookie) {
+		return "name:" + cookie.getName() + " value:" + cookie.getValue();
 	}
 
 }

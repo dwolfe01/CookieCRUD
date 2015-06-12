@@ -25,7 +25,7 @@ import wolfesoftware.controller.CookieClientController;
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/spring/test-application-context.xml")
-public class CookieControllerTest {
+public class CookieClientControllerTest {
 
 	@Resource
 	CookieClientController cookieController;

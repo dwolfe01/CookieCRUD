@@ -1,6 +1,7 @@
 package wolfesoftware.integration.controller;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.util.ResourceUtils;
 
@@ -9,6 +10,7 @@ import com.wolfesoftware.sailfish.concurrency.worker.factory.HttpUserWorkerFacto
 import com.wolfesoftware.sailfish.responsehandler.factory.ResponseHandlerFactory;
 import com.wolfesoftware.sailfish.responsehandler.factory.ResponseHandlerFactory.ResponseHandlers;
 
+@Ignore
 public class SailFishCookieCrudIntegrationTest {
 
 	@Test
